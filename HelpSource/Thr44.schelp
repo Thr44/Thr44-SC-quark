@@ -1,0 +1,37 @@
+title:: Thr44
+summary:: An overview of the Thr44 framework
+categories:: Libraries>Thr44
+
+section::Introduction
+
+emphasis::"Music before everything else, and, to that end, prefer the uneven more vague and more soluble in air and nothing in it that is heavy or still."::
+footnote::
+Umberto ECO, "The Open Work" 1989, p.8.
+::
+
+
+
+section::Contents
+
+definitionList::
+## link::Classes/Odef:: || For creation and control of sound processes (for tasks, synths)
+## link::Classes/SCPad:: || To control Odefs with iPad
+## link:: Classes/PetriNet:: || A PetriNet implementation for musical creation (developed with Ricardo Guerreiro and António Rito Silva)	
+::
+
+Section::Mathematical framework
+
+definitionList::
+## link::Classes/Thr44Network:: || Create and model graphs
+## link::Classes/Thr44ParticleSystem:: || 
+
+Section::Aknowledgement and Feedback
+
+Thanks to Santiago Ortiz, Julian Rohrhuber and Alberto de Campo for all the knowledge provided
+
+	
+
+for help or comments contact me:
+
+Miguel Cardoso, mcardoso@344server.org	
+

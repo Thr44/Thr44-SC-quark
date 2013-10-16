@@ -1,0 +1,97 @@
+CLASS:: Thr44Transition
+summary:: (put short description here)
+categories:: Thr44, graph, petri
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: new
+(describe method here)
+code::
+(
+p=PetriNet();
+~transition=ThrTransition(p.getNewNodeID(), "");
+p.addTransition(~transition);
+)
+::
+
+argument:: id
+(describe argument here)
+
+argument:: label
+(describe argument here)
+
+returns:: (returnvalue)
+
+
+INSTANCEMETHODS::
+
+METHOD:: type
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: directed
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: inputNodeList
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: inputRelationList
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: waitTimeValue
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: init
+(describe method here)
+
+argument:: id
+(describe argument here)
+
+argument:: label
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: update
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: waitTime
+(describe method here)
+
+argument:: val
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: doAction
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: onActionComplete
+(describe method here)
+
+returns:: (returnvalue)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

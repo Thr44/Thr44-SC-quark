@@ -1,0 +1,177 @@
+CLASS:: Thr44PetriNet
+summary:: Class to model petri graphs
+categories:: Thr44, graph, petri
+related:: Classes/Thr44Network
+
+DESCRIPTION::
+This class is part of a mathematical framework and was created to model graphs as means to explore complex and non-linear situations for musical performance and composition. See link::Classes/PetriNet::
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Creates a new instance of Thr44PetriNet. 
+See also link::Classes/PetriNet::
+
+returns:: link::Classes/Thr44PetriNet::
+
+
+INSTANCEMETHODS::
+
+private:: networkSynths, playingSynths, playTransition, init
+
+
+subsection:: PetriNet Construction
+METHOD:: addTransition
+Adds a link::Classes/Thr44Transition:: to the PN. 
+CODE::
+(
+p=PetriNet();
+
+p.addTransition(Thr44Transition(p.getNewNodeID(), ""));
+)
+::
+
+argument:: transition
+A link::Classes/Thr44Transtion:: to add to PN.
+
+
+METHOD:: removeTransition
+Removes a link::Classes/Thr44Transition:: from the PN.  
+
+argument:: transition
+A link::Classes/Thr44Transition:: to remove from PN.
+
+
+METHOD:: addPlace
+Adds a link::Classes/Thr44Place:: to the PN. 
+CODE::
+(
+p=PetriNet();
+
+p.addPlace(Thr44Place(p.getNewNodeID(), ""));
+)
+::
+
+argument:: place
+A link::Classes/Thr44Place:: to add to PN.
+
+METHOD:: removePlace
+Removes a link::Classes/Thr44Place:: from the PN.  
+
+argument:: place
+A link::Classes/Thr44Place:: to remove from PN.
+
+METHOD:: addArc
+An link::Classes/Thr44Arc:: to add to PN
+CODE::
+(
+p=PetriNet();
+~transition=Thr44Transition(p.getNewNodeID(), "");
+p.addTransition(~transition);
+~place=Thr44Place(p.getNewNodeID(), "");
+p.addPlace(~place);
+
+~arc=Thr44Arc(~transition, ~place, p.getNewRelationID(), "");
+~isAdded=p.addArc(~arc);
+)
+::
+
+argument:: arc
+A link::Classes/Thr44Arc:: to add to PN.
+
+returns:: A link::Classes/Boolean::: If added returns true
+
+METHOD:: removeArc
+A link::Classes/Thr44Arc:: to remove from PN.
+
+argument:: arc
+An link::Classes/Thr44Arc:: to add to PN
+
+::
+
+subsection:: Accessing PetriNet
+METHOD:: getTransitionFromId
+Find in PN a link::Classes/Thr44Transition:: with the provided id. When instantiating a new Transition, an unique id is expected.
+
+
+argument:: id
+The id of the link::Classes/Thr44Transition::
+
+returns:: A link::Classes/Thr44Transition::. If not found returns link::Classes/Nil::
+
+
+METHOD:: getPlaceFromId
+Find in PN a link::Classes/Thr44Place:: with the provided id. When instantiating a new Place, an unique id is expected.
+
+
+argument:: id
+The id of the link::Classes/Thr44Place::
+
+returns:: A link::Classes/Thr44Place::. If not found returns link::Classes/Nil::
+
+
+
+
+subsection:: Other methods:
+returns:: (returnvalue)
+
+METHOD:: playTransition
+(describe method here)
+
+argument:: transition
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: getMinConnectivity
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: getMaxConnectivity
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: getConnectivity
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: update
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: log
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: numTransitions
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: transitionList
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: placeList
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: isPlaying
+(describe method here)
+
+returns:: (returnvalue)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

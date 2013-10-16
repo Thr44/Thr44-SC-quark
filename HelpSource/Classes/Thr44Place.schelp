@@ -1,0 +1,100 @@
+CLASS:: Thr44Place
+summary:: (put short description here)
+categories:: Thr44, graph, petri
+related:: Classes/PetriNet, Classes/Thr44PetriNet
+
+DESCRIPTION::
+This class is part of a mathematical framework and was created to model graphs as means to explore complex and non-linear situations for musical performance and composition.
+See link::Classes/PetriNet::
+
+CLASSMETHODS::
+
+METHOD:: new
+(describe method here)
+code::
+(
+p=PetriNet();
+~place=Thr44Place(p.getNewNodeID(), "");
+p.addPlace(~place);
+)
+::
+
+argument:: id
+(describe argument here)
+
+argument:: label
+(describe argument here)
+
+returns:: (returnvalue)
+
+
+INSTANCEMETHODS::
+
+METHOD:: type
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: directed
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: inputNodeList
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: inputRelationList
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: weight
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: nTokens
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: k
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: init
+(describe method here)
+
+argument:: id
+(describe argument here)
+
+argument:: label
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: addTokens
+(describe method here)
+
+argument:: n
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: removeTokens
+(describe method here)
+
+argument:: n
+(describe argument here)
+
+returns:: (returnvalue)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

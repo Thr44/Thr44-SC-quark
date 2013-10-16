@@ -1,0 +1,59 @@
+CLASS:: Thr44Arc
+summary:: (put short description here)
+categories:: Undocumented classes
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: new
+(describe method here)
+
+argument:: node0
+(describe argument here)
+
+argument:: node1
+(describe argument here)
+
+argument:: id
+(describe argument here)
+
+argument:: label
+(describe argument here)
+
+returns:: (returnvalue)
+
+
+INSTANCEMETHODS::
+
+METHOD:: type
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: init
+(describe method here)
+
+argument:: node0
+(describe argument here)
+
+argument:: node1
+(describe argument here)
+
+argument:: id
+(describe argument here)
+
+argument:: label
+(describe argument here)
+
+returns:: (returnvalue)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

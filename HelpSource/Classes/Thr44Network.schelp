@@ -1,0 +1,103 @@
+CLASS:: Thr44Network
+summary:: Abstract class to model graphs
+categories:: Undocumented classes
+related:: Thr44PetriNet, Thr44Node, Thr44Relation, Thr44ParticleSystem 
+
+DESCRIPTION::
+This class is part of a mathematical framework and was created to model graphs as means to explore complex and non-linear situations for musical performance and composition. A graph is a collection of nodes (Thr44Node) and a collection of edges (Thr44Relation) that connect pairs of nodes.
+
+
+
+CLASSMETHODS::
+
+METHOD:: new
+INstantiates a new Thr44Network with no nodes or edges associated.
+
+returns:: Thr44Network
+
+
+INSTANCEMETHODS::
+
+METHOD:: type
+(describe method here)
+
+returns:: (returnvalue)
+
+
+METHOD:: nodeList
+a list of all the nodes added to the network
+
+returns:: Thr44NodeList
+
+METHOD:: relationList
+a list of all the relations added to the network
+
+returns:: Thr44RelationList
+
+
+METHOD:: getNewNodeID
+returns an unique auto-increment id to assign to nodes. 
+
+returns:: Number
+
+METHOD:: getNewRelationID
+returns an unique auto-increment id to assign to relations. 
+
+returns:: Number
+
+METHOD:: addNode
+(describe method here)
+
+argument:: node
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: addNodeIfNew
+(describe method here)
+
+argument:: node
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: removeNode
+(describe method here)
+
+argument:: node
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: addRelation
+(describe method here)
+
+argument:: relation
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: removeRelation
+(describe method here)
+
+argument:: relation
+(describe argument here)
+
+returns:: (returnvalue)
+
+METHOD:: update
+(describe method here)
+
+returns:: (returnvalue)
+
+METHOD:: log
+(describe method here)
+
+returns:: (returnvalue)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

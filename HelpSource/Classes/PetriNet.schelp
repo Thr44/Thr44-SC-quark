@@ -1,0 +1,189 @@
+CLASS:: PetriNet
+summary:: A Petri Network Class for Musical Creation
+categories:: Thr44, graph, petri
+related:: Classes/Thr44PetriNet
+
+DESCRIPTION::
+Based in the Petri Network (PN) model (Petri and Reisig 2008). A PN is a graph built on two types of nodes: transitions and places, connected by directed arcs. When all the input places of a transition have enough tokens, the transition is triggered and tokens are created in the transition output places.
+When a PetriNet class is instantiated a new PN graph is dynamically created using a random procedure. This procedure ensures the creation of a correct PN graph comprising a certain number of places and transitions, bounded by a defined minimum and maximum, and connected with a given connectivity index. 
+Each transition of the PN is associated to an external object which is randomly selected from a list. The objects of this assigned list share a common interface (Odefs). When a transition is fired it launches its related object, which is set for a period of time. When the timeout occurs, the process is deallocated, and the PN transition finishes its execution creating tokens in its outbound places. 
+To allow the above described behavior we have extended the classical PN model with a time factor that seems to be fundamental, for our musical purposes, in dealing with the potential coexistence of multiple sound strata our parameter controls. Furthermore, our PN version randomly selects its initial state, i.e. the place from where it starts, and may not have a final state, thus allowing a non-linear cyclic network flow.
+
+Petri and Reisig (2008), Scholarpedia, 3(4):6477 - link::http://www.scholarpedia.org/article/Petri_net::
+
+Created by Miguel Cardoso, Ricardo Guerreiro and António Rito Silva.
+
+image::petriAction.png::
+
+
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Creates a new instance of PetriNet. If no arguments are supplied, it will return an empty PetriNet, otherwise it will call link::Classes/PetriNetBasicBuilder#-create:: method returning a link::Classes/PetriNet:: with the provided number of link::Classes/Thr44Place::s, link::Classes/Thr44Transition::s and connectivity index.
+This method is called by link::Classes/PetriNet#*new::
+
+argument:: numPlaces
+The amount of places to be created
+
+argument:: numTransitions
+The amount of transitions to be created
+
+argument:: connectivityIndex
+A normalized value (0 - 1). The minimum connectivity guarantees a single incoming and a single outgoing link::Classes/Thr44Arc:: to each place and transition. the maximum conectivity creates bidirectional arcs between every place and transition.
+
+
+returns:: a link::Classes/PetriNet:: instance
+
+
+INSTANCEMETHODS::
+
+
+private::update, init, playTransition
+
+METHOD:: play
+Will start the flow of tokens according to PT rules
+
+
+METHOD:: stop
+Will stop the flow of tokens, all link::Classes/Odef:: will continue playing until reached end.
+
+
+METHOD:: waitTime
+An additional wait time of silence before all the link::Classes/Thr44Transition::s will dispatch its reached end to link::Classes/Thr44Place::s.
+It can also be individually assigned with the method link::Classes/Thr44Transition#-waitTime::
+
+argument:: val
+A link::Classes/Number:: or link::CLasses/Function:: that returns a link::Classes/Number::
+code::
+p=PetriNet.new(4, 3, 0.2);
+p.waitTime({rrand(0.1, 0.7)});
+::
+
+METHOD:: setPlacesCapacity
+Set maximum token capacity to all Places, ie. when the maximum amount of tokens are reached, the new incoming are lost.
+It can also be individually assigned with the method link::Classes/Thr44Place#-addTokens::
+
+argument:: k
+An link::Classes/Integer::. default: inf
+
+METHOD:: addOdefs
+Assigns provided link::Classes/Odef::s to transitions.
+
+argument:: odefs
+Receives a single link::Classes/Odef:: or an link::Classes/Array::, link::Classes/List:: or link::Classes/OdefList:: of link::Classes/Odef::s.
+The provided odefs will be assigned to all link::Classes/Thr44Transition::s of the PetriNet.
+
+argument:: transitions
+Receives a single link::Classes/Thr44Transition:: or an link::Classes/Array:: or link::Classes/List:: of link::Classes/Thr44Transition::s.
+If no transition is provided, all PN transitions will be used (default).
+The link::Classes/Thr44Transition::s to which link::Classes/Odef::s will be assigned to.
+
+METHOD:: clearOdefs
+Removes all assigned link::Classes/Odef::s from the petriNet.
+
+
+METHOD:: gui
+Creates a link::Classes/Window:: with a graphic representation of the PetriNet. 
+link::Classes/Thr44Place:: (circle) represents the id and amount of acumulated tokens.
+link::Classes/Thr44Transition:: (rectangle) represents the id, and its color changes to green when playing.
+
+
+image::petriGui.png::
+
+subsection::PetriNet Construction
+
+METHOD::addTransition
+
+METHOD::addPlace
+
+METHOD::addArc
+
+METHOD::removeTransition
+
+METHOD::removePlace
+
+METHOD::removeArc
+
+
+subsection::See also 
+
+link::Classes/PetriNetBasicBuilder::
+
+link::Classes/PetriNetBasicBuilder#-buildSequence::
+
+link::Classes/PetriNetBasicBuilder#-insertSequence::
+
+link::Classes/PetriNetBasicBuilder#-buildLoop::
+
+link::Classes/PetriNetBasicBuilder#-addLoop::
+
+link::Classes/PetriNetBasicBuilder#-fork::
+
+link::Classes/PetriNetBasicBuilder#-join::
+
+link::Classes/PetriNetBasicBuilder#-closePaths::
+
+subsection::Accessing PetriNet
+
+METHOD::getTransitionFromId
+
+METHOD::getPlaceFromId
+
+EXAMPLES::
+
+code::
+// create a PN:
+p=PetriNet(6, 8, 0.2);
+p.gui;
+
+// define some sound processes:
+(
+Odef(\resonz, {
+	var sound, env, trig;
+	env=EnvGen.kr(Env.sine(12,  0.2), doneAction:2);
+	sound=Resonz.ar(Pulse.ar(Rand(30,90), 0.5), rrand(100, 10000), rrand(0.1, 1))*env;
+});
+
+
+Odef(\sines, {
+{
+        SinOsc.ar(rrand(200,3200))}.dup * EnvGen.kr(Env.sine(12,  0.2), doneAction:2);
+});
+
+Odef(\saws, {
+{
+        Saw.ar(rrand(1600,3200))}.dup * EnvGen.kr(Env.new([0.0001, 0.01, 0.3, rrand(0.001,0.01), 0.0001], [rrand(6,12), rrand(0.1,1), 0.001, rrand(6,12)],'exponential'), doneAction:2);
+});
+
+b = Buffer.read(s, Platform.resourceDir +/+ "sounds/a11wlk01.wav", bufnum:1);
+
+Odef(\grainy,
+{
+        var bufnum = 1, trate, trigger, dur, env, out;
+	trate = LFNoise0.kr(LFNoise1.kr(0.3).range(0.1,1)).range(0.1,21);
+        dur = 0.1 / trate;
+        trigger = Impulse.kr(trate);
+        env = EnvGen.kr(Env.linen(3, Rand(6, 18),  3, 1.0), doneAction:2);
+        out = TGrains.ar(2, trigger, bufnum, Rand(1.0,3.0), LFDNoise1.kr(0.1).range(0,BufDur.kr(bufnum)), dur, TRand.kr(-0.99,0.99,trigger), 0.5, 2);
+        Out.ar(0, out*env);
+});
+)
+
+// make these objects available to our PN
+p.addOdefs([Odef(\resonz), Odef(\sines), Odef(\saws), Odef(\grainy)]);
+
+//starting network flow:
+p.play();
+
+// interact with petri 
+//add tokens to specific places (look for id number in the gui)
+p.getPlaceFromId(8).addTokens(3);
+p.getPlaceFromId(6).addTokens(1);
+//set a waitTime of silence after each sound process finishes
+p.waitTime({rrand(0.2, 0.5)});
+
+//stop network flow;
+p.stop();
+::

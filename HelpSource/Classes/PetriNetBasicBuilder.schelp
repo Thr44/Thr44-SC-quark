@@ -1,0 +1,120 @@
+CLASS:: PetriNetBasicBuilder
+summary:: Contains methods to build PetriNets
+categories:: Thr44, graph, petri
+related:: Classes/PetriNet
+
+DESCRIPTION::
+Contains methods to build PetriNets(PN). For structural methods to add and remove single nodes see link::Classes/Thr44PetriNet::.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Creates a new builder instance.
+
+argument:: petrinet
+The petrinet this builder should operate with
+
+returns:: PetriNetBasicBuilder
+
+
+INSTANCEMETHODS::
+
+private::addSequence, petrinet
+METHOD:: create
+To be used on empty PN. Populates a PN with the provided number of places, transitions and connectivity index.
+This method is called by PetriNet constructor if arguments are supplied (see Petrinet.new())
+
+argument:: numPlaces
+The amount of places to be created
+
+argument:: numTransitions
+The amount of transitions to be created
+
+argument:: connectivityIndex
+A normalized value (0 - 1). The minimum connectivity guarantees a single incoming and a single outgoing arc to each place and transition. the maximum conectivity creates bidirectional arcs between every place and transition.
+
+METHOD:: closePaths
+If any place or transition lacks an incoming or outgoing arcs, it creates it.
+
+METHOD:: insertSequence
+Insert to initialPlace a sequence of nPlaces and nTransitions=nPlaces-1. initialPlace outgoing connections will be reestablished in sequence's final place.
+
+argument:: numPlaces
+
+argument:: initialPlace
+
+returns:: returns an IdentityDictionary with startPlace and endPlace
+
+
+METHOD:: buildSequence
+Builds a sequence of nPlaces and nTransitions=nPlaces-1;
+
+argument:: numPlaces
+
+returns:: returns an IdentityDictionary with startPlace and endPlace
+
+METHOD:: buildLoop
+Builds a loop of nPlaces and nTransitions=nPlaces.
+
+argument:: numPlaces
+
+returns:: An IdentityDictionary with the loop's origin place.
+
+METHOD:: addLoop
+Adds to initialPlace a loop of nPlaces and nTransitions=nPlaces;
+
+argument:: numPlaces
+
+argument:: initialPlace
+
+
+METHOD:: fork
+Forks a node (Place or Transition) to n nodes. If a Place is provided it generates n Transitions.
+
+argument:: forkSize
+the number of nodes it forks to
+
+argument:: initialNode
+A node (Place or Transition) to fork.
+
+returns:: returns an IdentityDictionary with forkTransitions or forkPLaces containing a set of nodes.
+
+METHOD:: join
+Joins the provided set of nodes. 
+
+argument:: nodes
+An array of nodes to join. All nodes must be of same type (Place or Transition)
+
+returns:: An IdentityDictionary with endPlace or endTransition respectively. ex: ( 'endPlace': a Thr44Place)
+
+
+EXAMPLES::
+
+code::
+//PETRINET HELP
+(
+
+var petri, result, builder, endPlace, numPlaces;
+
+petri=PetriNet();
+builder=PetriNetBasicBuilder(petri);
+numPlaces=3;
+
+result=builder.buildSequence(numPlaces);
+
+endPlace=result.endPlace;
+	
+petri.initPlace=result.initialPlace;
+
+result=builder.insertSequence(numPlaces, petri.initPlace);
+		
+petri.initPlace=result.initialPlace;
+
+builder.addLoop(numPlaces, endPlace);
+
+petri.log();
+petri.gui();
+
+)
+::
