@@ -32,18 +32,18 @@ Odef(\sinDown).play;
 ::
 ## UGen link::Classes/Function::s || Functions with UGens
 CODE::
-Odef(\FM, { 
+Odef(\FM, {
 	arg carrier=400, mod=20, modDepth=100;
 	Out.ar(0, SinOsc.ar(carrier + SinOsc.ar(mod, 0, modDepth)));
 });
 Odef(\FM).play;
 
-Odef(\FM).set(\carrier, 2, \mod, 1000, \modeDepth, 1000);
+Odef(\FM).set(\carrier, 2, \mod, 1000, \modDepth, 1000);
 ::
 ## Generic link::Classes/Function:: || Any generic function can be used. It allows setting methods of other running processes
 ::
 CODE::
-Odef(\sum, { 
+Odef(\sum, {
 	arg n0, n1;
 	n0+n1;
 });
@@ -60,7 +60,7 @@ CLASSMETHODS::
 private::defaultServer, nodeWatcher
 
 METHOD:: new
-Return a new Odef and store it in a global IdentityDictionary under the key. If there is already an Odef there, replace its object with the new one. 
+Return a new Odef and store it in a global IdentityDictionary under the key. If there is already an Odef there, replace its object with the new one.
 
 argument:: key
 A link::Classes/String:: or link::ClassesSymbol:: specifying the name of the Odef to use
@@ -77,7 +77,7 @@ An link::Classes/IdentityDictionary:: containing all link::Classes/Odef::s
 returns:: link::Classes/IdentityDictionary::
 
 METHOD:: clearAll
-Deletes all Odefs and removes them from link::Classes/Odef#*all:: 
+Deletes all Odefs and removes them from link::Classes/Odef#*all::
 
 INSTANCEMETHODS::
 
@@ -92,8 +92,8 @@ Set the values of one or more parameters.
 CODE::
 Odef(\syncSaw, {
 	arg out = 0,freq = 700, sawFreq = 440.0;
-        Out.ar(out, FM(freq, sawFreq, 0.1));
-	
+        Out.ar(out, FM(freq, sawFreq, 0.1));
+
 });
 
 Odef(\syncSaw).play
@@ -109,7 +109,7 @@ For this method to work link::Classes/Odef#*new:: registerWatcher must be set to
 returns:: link::Classes/Boolean::
 
 METHOD:: clear
-Deletes the Odef and removes it from link::Classes/Odef#*all:: 
+Deletes the Odef and removes it from link::Classes/Odef#*all::
 
 METHOD:: clone
 Create a new Odef and store it in link::Classes/Odef#*all:: under the key value. If there is already an Odef there, replace its object with the new one. The object is a function (see examples)
@@ -167,22 +167,44 @@ returns:: link::Classes/Odef::
 
 
 METHOD:: addControl
-Allows setting control information to be used by external objects (see link::Classes/SCPad#-addControl::)
+Allows setting control information to be used by external objects (see link::Classes/SCPad::)
 
 
 argument:: ctype
-the name to assign to control
+the name to assign to control.
+
+link::Classes/SCPad:: recognizes the following controls:
+definitionList::
+## Slider || requires one parameter
+## circularSlider || requires one parameter
+## circularRange || requires two parameters
+## circularSelectSlider || requires one parameter set as link::Classes/Association:: (see above example)
+## scatterXY || requires two parameters
+a third optional boolean parameter can be used. If \play is used it will start/stop the Odef sound process.
+## scatterRadial ||  requires two parameters
+a third optional parameter can be used (will return a boolean value). It \play is used it will start/stop the Odef sound process.
+## Play || requires the boolean parameter \play.
+::
 
 argument:: params
-the parameters to be used by the control
+the parameters to be used by the control.
+A link::Classes/ControlSpec:: must be defined for every parameter. See also link::Classes/SCPad#*loadSpecs::
+code::
+ControlSpec.specs[\rate] = ControlSpec(-2, 2, \linear, 0.01, 1, units: "Hz");
+::
 
-returns:: link::Classes/Odef::
 
 METHOD:: setControlMethod
-Allows setting control method to be used by external objects (see link::Classes/SCPad#-setControlMethod::)
+Allows setting control method to be used by external objects
 
 argument:: method
-the name to assign to control
+the name to assign to control.
+
+SCPad recognizes the following control methods:
+definitionList::
+## \select || will open the UIs for the Odef
+## \trig || will dispatch the Odef sound process. By press-and-holding the UIs Odef icon will display the controls.
+::
 
 returns:: link::Classes/Odef::
 
@@ -192,10 +214,10 @@ code::
 Odef(\scatter2, {
 	arg gain=1, rate=1, density=6, rho=0.7, azimuth=0, sndbuf=GrainEnv.sinc16Env->[GrainEnv.sinc8Env, GrainEnv.sinc16Env, GrainEnv.sinc32Env, GrainEnv.exponEnv];
 	inf.do({
-		Synth( \controlledGrainsClient, [\sndbuf, sndbuf, \gain,  gain, \grainSize,  [ 0.05, 1], \grainPos,  [ 0, 1 ] , \rate,  [ -2, 2 ] , \azimuth,  [azimuth, azimuth] , \rho, [rho, rho] , \spaceMode,  0 , \hasFilter,  false , \rhoMode,  0 , \ffreq,  nil , \frq,  nil ]); 
+		Synth( \controlledGrainsClient, [\sndbuf, sndbuf, \gain,  gain, \grainSize,  [ 0.05, 1], \grainPos,  [ 0, 1 ] , \rate,  [ -2, 2 ] , \azimuth,  [azimuth, azimuth] , \rho, [rho, rho] , \spaceMode,  0 , \hasFilter,  false , \rhoMode,  0 , \ffreq,  nil , \frq,  nil ]);
 		(1/density).wait;
 		//sndbuf.postln;
-	}); 	
+	});
 });
 Odef(\scatter2).addControl("circularSlider", [\gain]);
 Odef(\scatter2).addControl("scatterXY", [\rate, \density]);

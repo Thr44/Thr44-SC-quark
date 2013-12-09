@@ -21,7 +21,7 @@ Thr44ParticleSystem{
 			for(0, this.nNodes-1, {
 				arg i;
 				if(forcesMatrix[i][i].object==object, {
-					^forcesMatrix[i][i];	
+					^forcesMatrix[i][i];
 				});
 			});
 		});
@@ -30,7 +30,7 @@ Thr44ParticleSystem{
 		//[object.physics].postln;
 		object.physics=pNode;
 		^pNode;
-			
+
 	}
 	//private:
 	addPhysicsNode{
@@ -39,7 +39,7 @@ Thr44ParticleSystem{
 			if(object.class==Thr44Particle, {
 				node=object;
 			}, {
-				node=this.createPhysicsNode(object);	
+				node=this.createPhysicsNode(object);
 			});
 			nodePhysicsRequest=this.requestNodePhysics(node);
 			nodePhysics=nodePhysicsRequest[0];
@@ -65,7 +65,7 @@ Thr44ParticleSystem{
 					//traceForcesMatrix()
 				});
 				//("nodePhysics:"+nodePhysics).postln;
-				^nodePhysics; 
+				^nodePhysics;
 		}
 	//private:
 	requestNodePhysics{
@@ -87,7 +87,7 @@ Thr44ParticleSystem{
 				});
 			});
 		});
-		
+
 		/*
 		if(forcesMatrix[i]==nil, {
 			//check this:
@@ -98,7 +98,7 @@ Thr44ParticleSystem{
 		array=[nil, index];
 		^array;
 	}
-	
+
 	//Forces assignment:
 	addSpring{
 		arg node0, node1, k, l;
@@ -114,12 +114,12 @@ Thr44ParticleSystem{
 		var pNode0, pNode1, force, aPhysics;
 		array=args;
 
-		nodeP0=array[0]; 
-		nodeP1=array[1]; 
+		nodeP0=array[0];
+		nodeP1=array[1];
 		forceType=array[2];
 		newArray=array.copyRange(3, array.size()-1);
 		/*TODO verificar o validador de existencia de particulas*/
-		
+
 		pNode0=this.addPhysicsNode(nodeP0);
 		pNode1=this.addPhysicsNode(nodeP1);
 
@@ -157,7 +157,7 @@ Thr44ParticleSystem{
 		i=0;
 		while ({ i < nNodes }, {
 			j = 0;//i + 1;
-			
+
 			while ({ j < i }, {
 				//this.forcesMatrix[i]=this.forcesMatrix[i].extend(i, nil);//extending the array
 				//["checking!! force at:", i, j, forcesMatrix[i][j]].postln;
@@ -166,7 +166,7 @@ Thr44ParticleSystem{
 					//assign force!
 					//["contains:", forcesMatrix[i][i], forcesMatrix[j][j]].postln;
 					force=Thr44PRepulsor(this.forcesMatrix[i][i], this.forcesMatrix[j][j], k, l);
-					
+
 					/*[this.forcesMatrix[i], "!"].postln;
 					[this.forcesMatrix[i][i].x, this.forcesMatrix[i][i].y, "!"].postln;
 					[this.forcesMatrix[j][j].x, this.forcesMatrix[j][j].y, "!"].postln;
@@ -175,7 +175,7 @@ Thr44ParticleSystem{
 				});
 				j = j + 1;
 			});
-			i = i + 1; 
+			i = i + 1;
 		});
 		//"done fill!".postln;
 	}
@@ -185,7 +185,7 @@ Thr44ParticleSystem{
 		i=0;
 		while ({ i < nNodes }, {
 			j = 0;//i + 1;
-			
+
 			while ({ j < i }, {
 				//this.forcesMatrix[i]=this.forcesMatrix[i].extend(i, nil);//extending the array
 				//["checking!! force at:", i, j, forcesMatrix[i][j]].postln;
@@ -194,7 +194,7 @@ Thr44ParticleSystem{
 					//assign force!
 					//["contains:", forcesMatrix[i][i], forcesMatrix[j][j]].postln;
 					force=forceType(this.forcesMatrix[i][i], this.forcesMatrix[j][j], k, l);
-					
+
 					/*[this.forcesMatrix[i], "!"].postln;
 					[this.forcesMatrix[i][i].x, this.forcesMatrix[i][i].y, "!"].postln;
 					[this.forcesMatrix[j][j].x, this.forcesMatrix[j][j].y, "!"].postln;
@@ -203,7 +203,7 @@ Thr44ParticleSystem{
 				});
 				j = j + 1;
 			});
-			i = i + 1; 
+			i = i + 1;
 		});
 		//"done fill!".postln;
 	}
@@ -231,9 +231,9 @@ Thr44ParticleSystem{
 				forcesMatrix[i][i].ay = 0;
 				forcesMatrix[i][i].az = 0;
 			}, {
-				"there's nills".postln;	
+				"there's nills".postln;
 			});
-			i = i + 1; 
+			i = i + 1;
 		});
 		//
 		i=0;
@@ -245,17 +245,17 @@ Thr44ParticleSystem{
 				});
 				j = j + 1;
 			});
-			i = i + 1; 
+			i = i + 1;
 		});
 		//
 		i = 0;
 		while ({ i < nNodes }, {
 			if(forcesMatrix[i][i]!=nil && forcesMatrix[i][i]!="", {
-				//("node ASSIGN:"+forcesMatrix[i][i]).postln;	
+				//("node ASSIGN:"+forcesMatrix[i][i]).postln;
 				this.assignPositions(forcesMatrix[i][i]);
 			});
-			i = i + 1; 
-		});	
+			i = i + 1;
+		});
 	}
 	//
 	assignPositions{
@@ -274,7 +274,8 @@ Thr44ParticleSystem{
 		//node.z = node.z - node.vz;
 		//
 		//[node.x, node.y, node.z].postln;
-			
+		node.object.defaultAction.value(node.object);
+
 	}
 	//Rect(forcesMatrix[i][i].x*400, forcesMatrix[i][i].y*400, 8, 8)
 	gui{
@@ -285,7 +286,7 @@ Thr44ParticleSystem{
 			w.view.background_(Color.white);
 			w.drawHook = {
 				nNodes.do{
-					arg i; 
+					arg i;
 					// set the Color
 					Pen.color = Color.black;
 					Pen.addRect(Rect(forcesMatrix[i][i].x+200, forcesMatrix[i][i].y+200, 8, 8));
@@ -295,9 +296,9 @@ Thr44ParticleSystem{
 		});
 		w.refresh;
 		//	("started").postln;
-		{ while { run } { 
+		{ while { run } {
 			this.calculateParticles();
-			w.refresh; 
+			w.refresh;
 			0.04.wait } }.fork(AppClock);
 	}
 }

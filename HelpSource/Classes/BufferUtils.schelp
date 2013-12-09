@@ -1,0 +1,76 @@
+TITLE:: BufferUtils
+summary:: Buffer playing and manipulation utilities
+categories:: Undocumented classes
+related:: Classes/ContinuousBuffer
+
+DESCRIPTION::
+
+
+
+CLASSMETHODS::
+
+METHOD:: writeToFile
+(describe method here)
+
+ARGUMENT:: buffer
+(describe argument here)
+
+ARGUMENT:: name
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: playBuffer
+(describe method here)
+
+ARGUMENT:: out
+(describe argument here)
+
+ARGUMENT:: buffer
+(describe argument here)
+
+ARGUMENT:: rate
+(describe argument here)
+
+ARGUMENT:: loop
+(describe argument here)
+
+ARGUMENT:: server
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toMono
+(describe method here)
+
+ARGUMENT:: buffer
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: previewBuffer
+(describe method here)
+
+ARGUMENT:: out
+(describe argument here)
+
+ARGUMENT:: buffer
+(describe argument here)
+
+ARGUMENT:: rate
+(describe argument here)
+
+ARGUMENT:: loop
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

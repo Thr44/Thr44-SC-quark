@@ -1,0 +1,92 @@
+TITLE:: BufferList
+summary:: (put short description here)
+categories:: Undocumented classes
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: new
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: instance
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+METHOD:: hasGUI
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addBuffer
+(describe method here)
+
+ARGUMENT:: name
+(describe argument here)
+
+ARGUMENT:: buffer
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: getSize
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: gui
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: updateGUI
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: clearAll
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: init
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: getBufferAt
+(describe method here)
+
+ARGUMENT:: index
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: removeBufferAt
+(describe method here)
+
+ARGUMENT:: index
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: bufferList
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

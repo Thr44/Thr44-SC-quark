@@ -166,6 +166,9 @@ Odef{
 		});
 		all.removeAt(this.key);
 	}
+	asCompileString{
+		^"Odef(\\"++this.key++", "++this.obj.asCompileString++");";
+	}
 	set{
 		arg ... args;
 		"odef set".postln;
@@ -216,7 +219,7 @@ Odef{
 	//
 	interpretObject{
 		var string=this.obj.asCompileString;
-		var array, exp, cindex, argsElement, res, ns, synthRes;
+		var array, exp, cindex, argsElement, res, ns, synthRes, clonedEl;
 		//"@interpretObject".postln;
 		//general:
 		array=[string];
@@ -232,6 +235,7 @@ Odef{
 				objectType="streamEvent";
 			});
 		});
+		["obj type:", objectType].postln;
 		if( (objectType=="streamEvent").not, {
 			//"detect if it is a sound function:".postln;
 			exp=string.findRegexp("[.]ar[(]");
@@ -254,23 +258,23 @@ Odef{
 		//case normal function or stream or synth:
 		if( ((objectType=="soundFunction").not) && ((objectType=="synthFunction").not)&& ((objectType=="function").not), {
 			res="";
-
 			//remove args from object:
 			argsElement=argsElement.split(${);
 			exp=argsElement[1].findRegexp("(arg.*.;)");
 			if(exp.size>0, {
 				res=exp[0][1];
 			}, {
-				exp=argsElement[1].findRegexp("(|.*.|)");
+				exp=argsElement[1].findRegexp("(\\|.*.\\|)");
 				if(exp.size>0, {
 					res=exp[0][1];
 				}, {
 					res=exp;//mmc;
 				});
 			});
-
-			argsElement[1]=argsElement[1].replace(res, "");
-			array[0]=argsElement.join("{");
+			//if(argsElement.length>0, {
+				argsElement[1]=argsElement[1].replace(res, "");
+				array[0]=argsElement.join("{");
+			//});
 		});
 		if( objectType=="synthFunction", {
 			res="";
@@ -280,7 +284,7 @@ Odef{
 			if(exp.size>0, {
 				res=exp[0][1];
 			}, {
-				exp=argsElement[1].findRegexp("(|.*.|)");
+				exp=argsElement[1].findRegexp("(\\|.*.\\|)");
 				if(exp.size>0, {
 					res=exp[0][1];
 				}, {
@@ -295,26 +299,45 @@ Odef{
 			^"{currentEnvironment.result="++res++"}";
 		});
 		if( objectType=="function", {
+			["object::::::"].postln;
 			res="";
 			//remove args from object:
 			argsElement=argsElement.split(${);
-			exp=argsElement[1].findRegexp("(arg.*.;)");
+			exp=argsElement[1].findRegexp("(arg .*.;)");
+			//["expo:::", exp].postln;
 			if(exp.size>0, {
+				"1".postln;
 				argsElement=argsElement[1].split($;);
-				res=argsElement[1];
+				//["--->", argsElement].postln;
+
+				clonedEl=argsElement.copy;
+				//["--->", clonedEl].postln;
+				clonedEl.removeAt(0);
+				//["--->", clonedEl].postln;
+				res=clonedEl.join($;);
+				^"{"++res;
 
 			}, {
-				exp=argsElement[1].findRegexp("(|.*.|)");
+					"2".postln;
+					["case 2:", argsElement[1]].postln;
+				exp=argsElement[1].findRegexp("(\\|.*.\\|)");
+					["EXP:", exp].postln;
 				if(exp.size>0, {
 					argsElement=argsElement[1].split($|);
 					res=argsElement[2];
 					^"{"++res;
 				}, {
-					res=exp;//mmc
+							"3".postln;
+					//["@@@@@", exp].postln;
+					//["@@@@@", argsElement[1]].postln;
+					res=argsElement[1];//mmc
+					^"{"++res;
 				});
 			});
+			"4".postln;
 			^"{"++res++"}";
 		});
+		"5".postln;
 		^array.join("");
 
 	}
@@ -324,28 +347,28 @@ Odef{
 		argumentsArray=funcString.split(${);
 		//["ARGS?", argumentsArray].postln;
 		if(argumentsArray.size>1, { //starts here
-		//["using:", argumentsArray[1]].postln;
-		argArray=argumentsArray[1];
+			//["using:", argumentsArray[1]].postln;
+			argArray=argumentsArray[1];
 
-		argArray=argumentsArray[1].split($|);
-		if(argArray.size>2, {
-			argArray[0]=argArray[0]++"|"++argArray[1]++"|";
-			argArray[1]="";
-			hasArgs=true;
-		}, {
-			argArray=argumentsArray[1].split($;);
-			if(argArray.size>1, {
+			argArray=argumentsArray[1].split($|);
+			if(argArray.size>2, {
+				argArray[0]=argArray[0]++"|"++argArray[1]++"|";
+				argArray[1]="";
+				hasArgs=true;
+			}, {
+					argArray=argumentsArray[1].split($;);
+					if(argArray.size>1, {
 
-				exp=argArray[0].findRegexp("arg");
-				if(exp.size>0, {
+						exp=argArray[0].findRegexp("arg");
+						if(exp.size>0, {
 
-					argArray[0]=argArray[0]++";";
-					argArray[1]="";
-					hasArgs=true;
-				});
-			});
+							argArray[0]=argArray[0]++";";
+							argArray[1]="";
+							hasArgs=true;
+						});
+					});
 
-		});//ends here
+			});//ends here
 		});
 		//["hasArgs?", hasArgs].postln;
 		if(hasArgs, {
@@ -387,7 +410,7 @@ Odef{
 		//replaces function args to envir vars:
 
 		if((objectType!="soundFunction"), {
-			//["�� not soundFunction"].postln;
+			//[" not soundFunction"].postln;
 			obj.def.argNames.do({
 				arg val, i;
 				//[i, val].postln;

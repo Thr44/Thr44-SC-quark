@@ -1,0 +1,165 @@
+TITLE:: Thr44ParticleSystem
+summary:: (put short description here)
+categories:: Undocumented classes
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: new
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+METHOD:: damp
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: init
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: fillMatrixWithForces
+(describe method here)
+
+ARGUMENT:: forceType
+(describe argument here)
+
+ARGUMENT:: k
+(describe argument here)
+
+ARGUMENT:: l
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: nNodes
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addForce
+(describe method here)
+
+ARGUMENT::  ... args
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: gui
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addSpring
+(describe method here)
+
+ARGUMENT:: node0
+(describe argument here)
+
+ARGUMENT:: node1
+(describe argument here)
+
+ARGUMENT:: k
+(describe argument here)
+
+ARGUMENT:: l
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: requestNodePhysics
+(describe method here)
+
+ARGUMENT:: node
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addRepulsor
+(describe method here)
+
+ARGUMENT:: node0
+(describe argument here)
+
+ARGUMENT:: node1
+(describe argument here)
+
+ARGUMENT:: k
+(describe argument here)
+
+ARGUMENT:: l
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: fillMatrixWithRepulsors
+(describe method here)
+
+ARGUMENT:: k
+(describe argument here)
+
+ARGUMENT:: l
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: assignPositions
+(describe method here)
+
+ARGUMENT:: node
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: forcesMatrix
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: addPhysicsNode
+(describe method here)
+
+ARGUMENT:: object
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: createPhysicsNode
+(describe method here)
+
+ARGUMENT:: object
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: removeForceFromNodes
+(describe method here)
+
+ARGUMENT:: node0
+(describe argument here)
+
+ARGUMENT:: node1
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: calculateParticles
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

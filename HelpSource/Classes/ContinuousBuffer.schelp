@@ -1,0 +1,103 @@
+TITLE:: ContinuousBuffer
+summary:: (put short description here)
+categories:: Undocumented classes
+related:: Classes/BufferUtils
+
+DESCRIPTION::
+(put long description here)
+
+code::
+~contBuf=ContinuousBuffer.new();
+~contBuf.setCurrentInput(0);
+~contBuf.startSnapshotBuffer(20, true);//will store the last 20 seconds of audio
+
+b=~contBuf.getSnapshot(2); //creates a Buffer with the last 2 seconds recorded
+b.plot;
+~bufUtils=BufferUtils.playBuffer(b);
+
+::
+
+
+CLASSMETHODS::
+
+METHOD:: nextBuffer
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: new
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+METHOD:: bufS1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: startSnapshotBuffer
+(describe method here)
+
+ARGUMENT:: size
+(describe argument here)
+
+ARGUMENT:: useInternalBus
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: currInput
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: getSnapshot
+(describe method here)
+
+ARGUMENT:: size
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: stopSnapshotBuffer
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: init
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: recS2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: recS1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setCurrentInput
+(describe method here)
+
+ARGUMENT:: input
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: bufS2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

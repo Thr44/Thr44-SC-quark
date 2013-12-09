@@ -1,0 +1,99 @@
+TITLE:: Recorder
+summary:: (put short description here)
+categories:: Undocumented classes
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: new
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: instance
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+METHOD:: bufS2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: init
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: bufferList
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: bufS1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: activeIdList
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: recS2
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: currInput
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: stopRec
+(describe method here)
+
+ARGUMENT:: in
+(describe argument here)
+
+ARGUMENT:: fName
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: startRec
+(describe method here)
+
+ARGUMENT:: in
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: recS1
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: playSynth
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: win
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

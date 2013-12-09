@@ -16,22 +16,23 @@ section::Contents
 definitionList::
 ## link::Classes/Odef:: || For creation and control of sound processes (for tasks, synths)
 ## link::Classes/SCPad:: || To control Odefs with iPad
-## link:: Classes/PetriNet:: || A PetriNet implementation for musical creation (developed with Ricardo Guerreiro and António Rito Silva)	
+## link:: Classes/PetriNet:: || A PetriNet implementation for musical creation (developed with Ricardo Guerreiro and António Rito Silva)
 ::
 
 Section::Mathematical framework
 
 definitionList::
 ## link::Classes/Thr44Network:: || Create and model graphs
-## link::Classes/Thr44ParticleSystem:: || 
+## link::Classes/Thr44ParticleSystem:: ||
+::
 
 Section::Aknowledgement and Feedback
 
 Thanks to Santiago Ortiz, Julian Rohrhuber and Alberto de Campo for all the knowledge provided
 
-	
+
 
 for help or comments contact me:
 
-Miguel Cardoso, mcardoso@344server.org	
+Miguel Cardoso, mcardoso@344server.org
 

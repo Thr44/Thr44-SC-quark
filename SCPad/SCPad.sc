@@ -5,10 +5,10 @@ SCPad{
 		rate - update iPad refresh rate
 		iPadNetAddress - iPad's OSC address
 	*/
-	
+
 	//TODO: implement singleton!
-	
-	*new { 
+
+	*new {
 		arg ip="127.0.0.1", port=12345;
 		^super.new.init(ip, port);
 	}
@@ -20,18 +20,24 @@ SCPad{
 		ControlSpec.specs[\pan] = ControlSpec(-1, 1, \linear, 0.001, 1, units: "");
 		ControlSpec.specs[\azimuth] = ControlSpec(-pi, pi, \linear, 0.001, 1, units: "");
 		ControlSpec.specs[\rho] = ControlSpec(0, 8, \linear, 0.001, 1, units: "");
-		ControlSpec.specs[\grainSize] = ControlSpec(0.05, 1, \linear, 0.01, 1, units: "ms");	
+		ControlSpec.specs[\grainSize] = ControlSpec(0.05, 1, \linear, 0.01, 1, units: "ms");
 	}
 	*defaultControls{
 		var controls=[];
 		controls=controls.add(["Slider", [\gain]]);
 		//controls=controls.add(["circularSelectSlider", [\bufnum]]);
-		controls=controls.add(["circularSelectSlider", [\sndbuf]]);		controls=controls.add(["circularRange", [\grainSize]]);
+		controls=controls.add(["circularSelectSlider", [\sndbuf]]);
+		controls=controls.add(["circularRange", [\grainSize]]);
 		controls=controls.add(["scatterXY", [\rate, \density, \play]]);
 		controls=controls.add(["scatterRadial", [\azimuth, \rho, \spatialCtrMode]]);
 		controls=controls.add(["scatterRadial", [\azimuth, \rho]]);
 		controls=controls.add(["scatterRadial", [\pan, \spatialCtrMode]]);
 		controls=controls.add(["scatterRadial", [\pan]]);
+		controls=controls.add(["circularSelectSlider", [\sndbuf]]);
+		controls=controls.add(["circularSelectSlider", [\envbuf]]);
+		controls=controls.add(["circularSlider", [\freq]]);
+		controls=controls.add(["circularSlider", [\mod]]);
+		controls=controls.add(["circularSlider", [\modDepth]]);
 		controls=controls.add(["Play", [\play]]);
 		^controls;
 	}
@@ -43,19 +49,19 @@ SCPad{
 			inf.do({
 				this.updateAll();
 				(1/rate).wait;
-			});	
+			});
 		});
 		//responder listening to local server at IP 57120. defined by default as nil:
-		this.incomingResponder=OSCresponderNode.new(nil, \scPad, { 
-			arg time, resp, msg, str; 
+		this.incomingResponder=OSCresponderNode.new(nil, \scPad, {
+			arg time, resp, msg, str;
 			var def, dict;
 			if(msg.isNil, {}, {
 				//msg.postln;
 				//~msg=msg;
 				def=Odef(msg[1].asSymbol);
-		
+
 				if(msg[2]==\play, {
-			
+
 					if(msg[3]==1, {
 						["playing:", msg[2], msg[3]].postln;
 						def.play;
@@ -66,7 +72,7 @@ SCPad{
 				},{
 					//~json=msg[2];
 					//["1:", msg[2].class].postln;
-					//["2:", String(msg[2])].postln;	
+					//["2:", String(msg[2])].postln;
 					dict=msg[2].asString.jsonToDict;
 					//dict.postln;
 					//~json=dict;
@@ -92,9 +98,9 @@ SCPad{
 							});
 														//res=data;//.wchoose(dict.at(item)[0]);
 							//def.set(item, item.asSymbol.asSpec.map(dict.at(item)[0]));
-							
+
 						});
-						
+
 						//if spec, maps data:
 						if(spec.isNil, {
 							def.set(item, res);
@@ -108,23 +114,23 @@ SCPad{
 								res= item.asSymbol.asSpec.map(res);
 							});
 						});
-						
+
 						//res= item.asSymbol.asSpec.map(dict.at(item)[0]);
-						
+
 						//["RES:"; res].postln;
 						def.set(item, res);//item.asSymbol.asSpec.map(dict.at(item)[0]));
-						
+
 					});
 				});
 			});
 		});
 		this.play();
 		^this;
-		
+
 	}
 	play{
 		if(this.isPlaying.not, {
-			
+
 			this.outgoingRoutine.play;
 			this.incomingResponder.add;
 			this.isPlaying=true;
@@ -138,7 +144,7 @@ SCPad{
 			this.isPlaying=false;
 		});
 	}
-	
+
 	updateAll{
 		var currState, i, debug;
 		if( rrand(0.0, 1.0)>0.5, {
@@ -148,30 +154,30 @@ SCPad{
 			this.prevState=IdentityDictionary();//this.createState();
 			//should create elements here
 			//"created prevState".postln;
-			^nil;		
+			^nil;
 		});
 
 		//Odef.all.postln;
 		//if firstTime running:
-		
+
 		/*
 		if(this.prevState.isNil, {
 			this.prevState=[];//this.createState();
 			//should create elements here
-			^nil;		
+			^nil;
 		});
 		*/
 		currState=this.createState();
-		if(debug==true,{ 
+		if(debug==true,{
 			//["III:", currState.size].postln;
 			//[this.prevState.asCompileString(), currState.asCompileString()].postln;
 		});
 		if(this.prevState.asCompileString()!=currState.asCompileString, {
 			//check difs for objects to be created or modified:
 			currState.do({
-				
+
 			});
-			if(debug==true,{ 
+			if(debug==true,{
 				//[currState.size, "---", this.prevState.size].postln;
 			});
 						//remove from iPad check:
@@ -180,7 +186,7 @@ SCPad{
 				prevState.pairsDo({
 					arg key, value;
 					if(currState.at(key).isNil, {
-						this.removeDefWithKey(key);	
+						this.removeDefWithKey(key);
 					});
 					//["prevstate", key, value].postln;
 				});
@@ -204,7 +210,7 @@ SCPad{
 							["remove2:", this.prevState[i][0]].postln;
 							this.removeDefWithKey(this.prevState[i][0]);
 							this.prevState=this.prevState.removeAt(i);
-						
+
 						},{
 							i=i+1;
 						});
@@ -235,11 +241,11 @@ SCPad{
 			});
 			*/
 			//TODO: update params
-			
+
 			this.prevState=currState;
 		});
 	}
-	
+
 	assignControls{
 		arg oDef;
 		var argNames, controls, controlArgs, defaultControls, filterArgs, filteredArgs;
@@ -268,12 +274,12 @@ SCPad{
 				//argNames.postln;
 			});
 		});
-	
+
 		//CREATE TAGS LIST
-	
-	
+
+
 		filterArgs=filterArgs++controlArgs;
-	
+
 		filteredArgs=[]; //g
 		defaultControls.do({
 			arg val;
@@ -284,7 +290,7 @@ SCPad{
 				filteredArgs=filteredArgs.add(elems.copy);
 			});
 		});
-	
+
 		//CLEAN PLAY and USED
 		filteredArgs.do({
 			arg val, i;
@@ -300,7 +306,7 @@ SCPad{
 				});
 			});
 		});
-	
+
 		filteredArgs.do({
 			arg val, i;
 			var  hasAll, argsDeleteList;
@@ -312,11 +318,11 @@ SCPad{
 				var elemIndex;
 				elemIndex=argNames.indexOf(elem);
 				if(elemIndex==nil, {
-					hasAll=false;	
+					hasAll=false;
 				});
 			});
 			if(hasAll==true, {
-				
+
 				["should add Control:", defaultControls[i]].postln;
 				oDef.addControl(*defaultControls[i].copy);
 				argsDeleteList=filteredArgs[i];
@@ -325,18 +331,18 @@ SCPad{
 					var argIndex=argNames.indexOf(argElem);
 					if(argIndex!=nil, {
 						argNames.removeAt(argIndex);
-					});	
+					});
 				});
 
 				filteredArgs[i]=nil;
 			});
-		});	
+		});
 	}
 	addDef{
 		arg def; //a Odef
 		var data, controlMethod, ch0, ch1, ch2, controls, availableArgs, hasPlayControl;
 		controlMethod=def.controlMethod;
-		
+
 		//attempt to set control method:
 		if(controlMethod.isNil, {
 			ch0=def.envir.newFunc.findRegexp("(.do)"); //check .do
@@ -355,12 +361,12 @@ SCPad{
 					});
 				});
 			});
-			
+
 		});
 		//attempt to set controls:
 		this.assignControls(def);
-		
-		
+
+
 		// adds play control::
 		hasPlayControl=false;
 		if(controlMethod==\select, {
@@ -372,13 +378,13 @@ SCPad{
 				def.addControl("Play", [\play]);
 			});
 		});
-		
+
 		//["set control method to:", controlMethod].postln;
 		data="<xml>
 <soundObject name='"++def.key.asString++"' action='add' cType='"++controlMethod.asString++"' status='"++def.isPlaying()++"'>
 <controls>\n";
-		
-		
+
+
 		def.controls.do({
 			arg val, i;
 			var controlData, j, argData, argName, aSpec;
@@ -392,16 +398,16 @@ SCPad{
 				//"-----".postln;
 				//["def:", def].postln;
 				//["name:", argName].postln;
-	
+
 				//["arg:", def.envir[argName.asSymbol]].postln;
 				//["ass:", def.argAssociations[argName.asSymbol]].postln;
 				if(def.argAssociations[argName.asSymbol].isNil, {
-					//"normal:".postln; 
+					//"normal:".postln;
 					argData=def.envir[argName.asSymbol];
 				}, {
 					//"association!".postln;
 					argData=def.argAssociations[argName.asSymbol].size;
-					
+
 				});
 				//["ARG DATA:", argData, argData.class].postln;
 				//fix this:
@@ -411,7 +417,7 @@ SCPad{
 						argData.do({
 							arg val, i;
 							argData[i]=aSpec.unmap(val);
-								
+
 						});
 					}, {
 						argData=aSpec.unmap(argData);
@@ -427,7 +433,7 @@ SCPad{
 					controlData=controlData++"\n<value>"++argData++"</value>";
 				});
 				controlData=controlData++"\n</param>";
-				j = j + 1; 
+				j = j + 1;
 			});
 			/*
 			while ({ j < val[1].size }, {
@@ -437,7 +443,7 @@ SCPad{
 					controlData=controlData++"\n<value>"++paramVal++"</value>";
 				});
 				controlData=controlData++"\n</param>";
-				j = j + 2; 
+				j = j + 2;
 			});
 			*/
 			controlData=controlData++"\n</control>";
@@ -462,7 +468,7 @@ SCPad{
 		data=data+"</controls>\n</soundObject>\n</xml>";
 		["sending to iPad:", data].postln;
 		this.iPadNetAddress.sendMsg("/soundObjects", data);
-		
+
 	}
 	removeDef{
 		arg def; //a Odef
@@ -472,8 +478,8 @@ SCPad{
 	removeAllDefs{
 		Odef.all.do({
 			arg val, i;
-			this.removeDef(val);	
-		});	
+			this.removeDef(val);
+		});
 	}
 	removeDefWithKey{
 		arg key; //a Odef name
@@ -497,7 +503,7 @@ SCPad{
 	/*
 	test{
 		Odef.all.postln;
-		
+
 		~oscSend=OSC.getNetAddress;
 		~oscSend.sendMsg("/soundObjects", ~paramMsg.());
 		~paramMsg={"<xml>

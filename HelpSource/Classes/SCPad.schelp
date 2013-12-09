@@ -6,11 +6,11 @@ related:: Classes/Odef
 DESCRIPTION::
 SCPad is a wrapper for communicating link::Classes/Odef:: with iOS SCPad! application
 
-It is accessible in the iTunes App Store: 
-link::http://itunes.apple.com/pt/app/scpad!/id521113570?l=en&mt=8:: 
+It is accessible in the iTunes App Store:
+link::http://itunes.apple.com/pt/app/scpad!/id521113570?l=en&mt=8::
 
 
-note::This class is still an early version! if you have problems or suggestions please contact me: mcardoso@344server.org:: 
+note::if you have problems or suggestions please contact me: mcardoso@344server.org::
 
 image::SCPad.png::
 
@@ -43,9 +43,9 @@ SynthDef(\tgrains, {
 	gSize = TRand.ar(grainSize[0], grainSize[1], trigger);//.poll;
 	gRate = TRand.ar(rate[0], rate[1], trigger);//.poll;
 	gPos = TRand.ar(grainPos[0], grainPos[1], trigger);//.poll;
-			
+
 	sound=TGrains.ar(2, trigger, bufnum, gRate, gPos, gSize, pan, gain);
-						
+
 	enve = Env.linen(0, gSize, 0, 1);
 	EnvGen.kr(enve, gate, doneAction:2);
 	Out.ar(0, sound);
@@ -60,13 +60,13 @@ Buffer.readChannel(s, Platform.resourceDir +/+ "sounds/SinedPink.aiff", channels
 (
 Odef(\tgrain, {
 	arg gain=0.7, rate=1, density=6, pos=0.7, grainSize=[0.05, 0.7], bufnum=[1]->[1,2], azimuth=0, rho=1;
-	
+
 	inf.do({
 		var pan;
 		pan=Polar(1, azimuth).imag;
-		Synth( \tgrains, [\bufnum, bufnum.choose, \gain,  gain, \grainSize, grainSize, \grainPos,  [ 0, 1 ] , \rate,  [ -2, 2 ] , \pan, pan]); 
+		Synth( \tgrains, [\bufnum, bufnum.choose, \gain,  gain, \grainSize, grainSize, \grainPos,  [ 0, 1 ] , \rate,  [ -2, 2 ] , \pan, pan]);
 		(1/density).wait;
-	}); 	
+	});
 });
 Odef(\tgrain).addControl("circularSlider", [\gain]);
 Odef(\tgrain).addControl("circularSelectSlider", [\bufnum]);
@@ -77,46 +77,6 @@ Odef(\tgrain).addControl("Play", [\play]);
 
 ::
 
-subsection::Odef method description to use with SCPad
-
-METHOD:: Odef.addControl 
-Odef method that setting control information to be used by external objects (see link::Classes/Odef#-addControl::)
-Usage for SCPad is documented here:
-
-argument:: ctype
-the name ( link::Classes/String::) to assign to control. SCPad recognizes the following controls:
-definitionList::
-## Slider || requires one parameter
-## circularSlider || requires one parameter
-## circularRange || requires two parameters
-## circularSelectSlider || requires one parameter set as link::Classes/Association:: (see above example)
-## scatterXY || requires two parameters
-a third optional boolean parameter can be used. If \play is used it will start/stop the Odef sound process.
-## scatterRadial ||  requires two parameters
-a third optional parameter can be used (will return a boolean value). It \play is used it will start/stop the Odef sound process.
-## Play || requires the boolean parameter \play.
-::
-
-argument:: params
-
-an array of parameters to be used by the control. 
-A link::Classes/ControlSpec:: must be defined for every parameter. See also link::Classes/SCPad#*loadSpecs::
-code::
-ControlSpec.specs[\rate] = ControlSpec(-2, 2, \linear, 0.01, 1, units: "Hz");
-::
-
-
-
-METHOD:: Odef.setControlMethod
-
-SCPad! behavior differs according to the type of Odef used.
-
-argument:: method
-SCPad recognizes the following control methods:
-definitionList::
-## \select || will open the UIs for the Odef
-## \trig || will dispatch the Odef sound process. By press-and-holding the UIs Odef icon will display the controls.
-::
 
 CLASSMETHODS::
 
@@ -125,14 +85,14 @@ METHOD:: new
 
 argument:: ip
 iOS IP Address (can be found in Settings>Wi-Fi advanced settings)
-General>Auto-Lock should be set to Never to prevent losing connection. 
+General>Auto-Lock should be set to Never to prevent losing connection.
 
 argument:: port
 SCPad reads on port 12345. This value should not be changed.
 
 
 METHOD:: loadSpecs
-By default SCPad loads a few link::Classes/ControlSpecs::
+By default SCPad loads a few link::Classes/ControlSpec::
 
 
 METHOD:: defaultControls
